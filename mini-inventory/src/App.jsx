@@ -12,6 +12,7 @@ import MyForm from './MyForm'
 import withTitle from './Layout'
 import Data from './DataGrid'
 import EditProduct from './EditProduct'
+import ProductDetailForm from './ProductDetailForm'
 
 
 
@@ -21,6 +22,8 @@ function App() {
   const ProductForm = withTitle(MyForm)
   const ProductData = withTitle(Data)
   const EditForm = withTitle(EditProduct)
+  const ProductDetail = withTitle(ProductDetailForm)
+
 
 
   return (
@@ -53,6 +56,8 @@ function App() {
         {/* <Route path='/myproduct' element={<ProductForm/>}/> */}
         <Route path='/myproduct' element={<ProductData/>}/>
         <Route path='/EditProduct' element={<EditForm/>}/>
+        <Route path='/ProductDetailForm' element={<ProductDetail/>}/>
+
 
 
 

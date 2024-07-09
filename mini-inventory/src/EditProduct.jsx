@@ -5,8 +5,12 @@ import './Products/ProStyle.css'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import authFetch from './interceptors'
+import { useNavigate } from 'react-router-dom';
+
 
 const EditProduct = () => {
+    const navv = useNavigate()
+
   const modules = {
     toolbar: [
       [{ 'font': [] }, { 'size': [] }],
@@ -110,7 +114,7 @@ const EditProduct = () => {
               <ErrorMessage name="description" component="div" className="error-message" />
             </div>
 
-            <button type="submit" disabled={isSubmitting} className="submit-button">
+  <button type="submit" disabled={isSubmitting} className="submit-button" onClick={()=>{navv("/myproduct")}}>
               Submit
             </button>
           </Form>

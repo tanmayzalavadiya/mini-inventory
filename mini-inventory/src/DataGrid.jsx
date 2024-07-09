@@ -27,6 +27,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CardUse from './CardUse';
 import { useNavigate } from 'react-router-dom';
+// delete
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 
@@ -34,6 +42,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Data () {
 
 const [data,setData] = useState([]);
+const [id,setId] = useState();
 const navv = useNavigate()
 
 
@@ -71,14 +80,22 @@ const columns = [
         onClick={(event) => {
           handleClick(event, params);
           navv("/EditProduct")
-        }}/>
+          {manageEdit}
+        }}
+        />
       </Fab>
       <Fab style={{ backgroundColor: 'red', color: '#fff' }}  size="small" color="secondary" aria-label="edit">
-        <DeleteIcon sx={{ fontSize: 20 }}/>
+        <DeleteIcon sx={{ fontSize: 20 }}
+        onClick={handleDeleteOpen}/>
       </Fab>
 
-      <Fab style={{ backgroundColor: 'purple', color: '#fff' }}  size="small" disabled aria-label="like">
-        <VisibilityIcon sx={{ fontSize: 20 }}/>
+      <Fab style={{ backgroundColor: 'purple', color: '#fff' }}  size="small"  aria-label="like">
+        <VisibilityIcon sx={{ fontSize: 20 }}
+          onClick={() => {
+           // handleClick(event, params);
+            navv("/ProductDetailForm")
+          }}
+        />
       </Fab>
     </Box>
           )
@@ -86,13 +103,46 @@ const columns = [
     },
 
   ];
+
+  const [dopen, dsetOpen] = React.useState(false);
+
+  const ITEM_HEIGHT = 48;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   
   const handleClick = (event, params) => {
     // setAnchorEl(event.currentTarget);
     console.log(params.row.id);
     // data([params.row.id]);
   };
+  const manageEdit = (e) => {
+    opende();
+    handleClose();
+    setAction("edit");
+  };
   
+  // delete
+  const dhandleClose = () => {
+    dsetOpen(false);
+  };
+
+
+  const handleDeleteOpen = () => {
+    dsetOpen(true);
+    handleClose();
+  };
+  const deleteData = () => {
+    console.log(id);
+    authFetch.delete(`/api/products/${id}`).then((y) => {
+      console.log(y);
+    });
+
+    dhandleClose();
+  };
+
     useEffect(()=>{
   
       authFetch.get("/api/products/").then(y=>{
@@ -104,7 +154,7 @@ const columns = [
         }))
       })
   
-    },[])
+    },[dopen])
   return (
     <>
       {/* <div style={cardContainerStyle}>
@@ -172,6 +222,53 @@ const columns = [
       checkboxSelection
     />
 
+<Menu
+        id="long-menu"
+        MenuListProps={{
+          'aria-labelledby': 'long-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '20ch',
+          },
+        }}
+      >
+        
+          <MenuItem onClick={manageEdit}>
+          <EditNoteIcon sx={{ color: blue[500] }} />
+            Edit
+          </MenuItem>
+
+          
+          {/* <MenuItem onClick={handleDeleteOpen}>
+          <DeleteIcon sx={{ color: red[500] }} />
+            Delete
+          </MenuItem> */}
+      </Menu>
+    
+
+<Dialog
+        open={dopen}
+        onClose={dhandleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            are u sure you want to delete this?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={dhandleClose}>no</Button>
+          <Button onClick={deleteData} autoFocus>
+            yes
+          </Button>
+        </DialogActions>
+      </Dialog>
 
   </div>
   </>
