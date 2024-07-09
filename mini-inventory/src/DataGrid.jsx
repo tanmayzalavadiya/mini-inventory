@@ -25,6 +25,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import { blue ,red,grey} from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import CardUse from './CardUse';
 
 
 
@@ -97,11 +98,11 @@ const columns = [
   ];
   
   
-    const cardContainerStyle = {
-      display: 'flex',
-      flexWrap: 'wrap', // Optional: allows wrapping to the next line if there's not enough space
-      gap: '16px', // Optional: adds spacing between cards
-    };
+    // const cardContainerStyle = {
+    //   display: 'flex',
+    //   flexWrap: 'wrap', // Optional: allows wrapping to the next line if there's not enough space
+    //   gap: '16px', // Optional: adds spacing between cards
+    // };
   
   
     // const cardStyle = {
@@ -125,67 +126,67 @@ const columns = [
     //   color: '#fff',
     // };
 
-    const card1Style = {
-      minWidth: '275px',
-      height: '200px', // Adjusted height for demonstration
-      backgroundColor: '#b624ff',
-      color: '#fff',
-      transition: 'transform 0.3s', // Add smooth transition on hover
-      borderRadius: '10px', // Rounded corners for aesthetics
-      cursor: 'pointer', // Change cursor on hover
-      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-      margin: '10px', // Add some margin around the card
-    };
+    // const card1Style = {
+    //   minWidth: '275px',
+    //   height: '200px', // Adjusted height for demonstration
+    //   backgroundColor: '#b624ff',
+    //   color: '#fff',
+    //   transition: 'transform 0.3s', // Add smooth transition on hover
+    //   borderRadius: '10px', // Rounded corners for aesthetics
+    //   cursor: 'pointer', // Change cursor on hover
+    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
+    //   margin: '10px', // Add some margin around the card
+    // };
     
   
-    const card2Style = {
-      minWidth: '275px',
-      backgroundColor: '#32963d', // Color for card 2
-      color: '#fff',
-      transition: 'transform 0.3s', // Add smooth transition on hover
-      borderRadius: '10px', // Rounded corners for aesthetics
-      cursor: 'pointer', // Change cursor on hover
-      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-      margin: '10px', // Add some margin around the card
-    };
-    const card3Style = {
-      minWidth: '275px',
-      backgroundColor: '#c41849', // Color for card 2
-      color: '#fff',
-      transition: 'transform 0.3s', // Add smooth transition on hover
-      borderRadius: '10px', // Rounded corners for aesthetics
-      cursor: 'pointer', // Change cursor on hover
-      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-      margin: '10px', // Add some margin around the card
-    };
-    const card4Style = {
-      minWidth: '275px',
-      backgroundColor: '#03a5fc', // Color for card 2
-      color: '#fff',
-      transition: 'transform 0.3s', // Add smooth transition on hover
-      borderRadius: '10px', // Rounded corners for aesthetics
-      cursor: 'pointer', // Change cursor on hover
-      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-      margin: '10px', // Add some margin around the card
-    };
+    // const card2Style = {
+    //   minWidth: '275px',
+    //   backgroundColor: '#32963d', // Color for card 2
+    //   color: '#fff',
+    //   transition: 'transform 0.3s', // Add smooth transition on hover
+    //   borderRadius: '10px', // Rounded corners for aesthetics
+    //   cursor: 'pointer', // Change cursor on hover
+    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
+    //   margin: '10px', // Add some margin around the card
+    // };
+    // const card3Style = {
+    //   minWidth: '275px',
+    //   backgroundColor: '#c41849', // Color for card 2
+    //   color: '#fff',
+    //   transition: 'transform 0.3s', // Add smooth transition on hover
+    //   borderRadius: '10px', // Rounded corners for aesthetics
+    //   cursor: 'pointer', // Change cursor on hover
+    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
+    //   margin: '10px', // Add some margin around the card
+    // };
+    // const card4Style = {
+    //   minWidth: '275px',
+    //   backgroundColor: '#03a5fc', // Color for card 2
+    //   color: '#fff',
+    //   transition: 'transform 0.3s', // Add smooth transition on hover
+    //   borderRadius: '10px', // Rounded corners for aesthetics
+    //   cursor: 'pointer', // Change cursor on hover
+    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
+    //   margin: '10px', // Add some margin around the card
+    // };
   
-    const cardContentStyle = {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '16px',
-    };
+    // const cardContentStyle = {
+    //   display: 'flex',
+    //   justifyContent: 'space-between',
+    //   alignItems: 'center',
+    //   padding: '16px',
+    // };
   
-    const iconStyle = {
-      fontSize: '40px',
-    };
-    const headFont ={
-      fontSize : '30px'
-    }
+    // const iconStyle = {
+    //   fontSize: '40px',
+    // };
+    // const headFont ={
+    //   fontSize : '30px'
+    // }
   
-    const textContainerStyle = {
-      textAlign: 'right',
-    };
+    // const textContainerStyle = {
+    //   textAlign: 'right',
+    // };
 
     // const [isHovered, setIsHovered] = useState(false);
 
@@ -207,7 +208,7 @@ export default function Data() {
     },[])
   return (
     <>
-      <div style={cardContainerStyle}>
+      {/* <div style={cardContainerStyle}>
       <Card style={card1Style} onMouseEnter={() => {}} onMouseLeave={() => {}} >
       <CardContent style={cardContentStyle}>
         <span>
@@ -244,7 +245,6 @@ export default function Data() {
       </CardContent>
       </Card>
 
-      {/* Repeat the Card component for other cards */}
       <Card style={card4Style}>
       <CardContent style={cardContentStyle}>
         <span>
@@ -256,9 +256,9 @@ export default function Data() {
         </span>
       </CardContent>
       </Card>
-      {/* Repeat as needed */}
     </div>
-    
+     */}
+     <CardUse data={data}/>
     <div style={{ height: 400, width: '100%' }}>
     <DataGrid
       rows={data}
