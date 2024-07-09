@@ -26,18 +26,16 @@ import { blue ,red,grey} from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CardUse from './CardUse';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+export default function Data () {
+
+const [data,setData] = useState([]);
+const navv = useNavigate()
+
 
 
 const columns = [
@@ -69,7 +67,11 @@ const columns = [
         return (
           <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab style={{ backgroundColor: 'green', color: '#fff' }}  size="small" color="primary" aria-label="add">
-        <EditNoteIcon sx={{ fontSize: 20 }}/>
+        <EditNoteIcon sx={{ fontSize: 20 }} 
+        onClick={(event) => {
+          handleClick(event, params);
+          navv("/EditProduct")
+        }}/>
       </Fab>
       <Fab style={{ backgroundColor: 'red', color: '#fff' }}  size="small" color="secondary" aria-label="edit">
         <DeleteIcon sx={{ fontSize: 20 }}/>
@@ -79,121 +81,18 @@ const columns = [
         <VisibilityIcon sx={{ fontSize: 20 }}/>
       </Fab>
     </Box>
-        //   <IconButton
-        // aria-label="more"
-        // id="long-button"
-        // aria-controls={open ? 'long-menu' : undefined}
-        // aria-expanded={open ? 'true' : undefined}
-        // aria-haspopup="true"
-        // onClick={(event) => {
-        //   handleClick(event, params);
-        // }}
-        // >
-        //   {/* <MoreVertIcon /> */}
-        // </IconButton>
           )
         }
     },
 
   ];
   
+  const handleClick = (event, params) => {
+    // setAnchorEl(event.currentTarget);
+    console.log(params.row.id);
+    // data([params.row.id]);
+  };
   
-    // const cardContainerStyle = {
-    //   display: 'flex',
-    //   flexWrap: 'wrap', // Optional: allows wrapping to the next line if there's not enough space
-    //   gap: '16px', // Optional: adds spacing between cards
-    // };
-  
-  
-    // const cardStyle = {
-    //   minWidth: '275px',
-    //   transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-    // transform: isHovered ? 'translateY(-10px)' : 'translateY(0)',
-    // boxShadow: isHovered ? '0 4px 8px rgba(0,0,0,0.3)' : '0 2px 4px rgba(0,0,0,0.1)',
-    // };
-    // const card1Style = {
-    //   // padding : '25px',
-    //   minWidth: '275px',
-    //   height: '250px',
-    //   backgroundColor: '#b624ff', // Color for card 1
-    //   color: '#fff',
-    // };
-
-    // const card1Style = {
-    //   minWidth: '275px',  // Keep the width as is
-    //   // height: '150px',    // Reduce the height to make it shorter
-    //   backgroundColor: '#b624ff', // Color for card 1
-    //   color: '#fff',
-    // };
-
-    // const card1Style = {
-    //   minWidth: '275px',
-    //   height: '200px', // Adjusted height for demonstration
-    //   backgroundColor: '#b624ff',
-    //   color: '#fff',
-    //   transition: 'transform 0.3s', // Add smooth transition on hover
-    //   borderRadius: '10px', // Rounded corners for aesthetics
-    //   cursor: 'pointer', // Change cursor on hover
-    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-    //   margin: '10px', // Add some margin around the card
-    // };
-    
-  
-    // const card2Style = {
-    //   minWidth: '275px',
-    //   backgroundColor: '#32963d', // Color for card 2
-    //   color: '#fff',
-    //   transition: 'transform 0.3s', // Add smooth transition on hover
-    //   borderRadius: '10px', // Rounded corners for aesthetics
-    //   cursor: 'pointer', // Change cursor on hover
-    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-    //   margin: '10px', // Add some margin around the card
-    // };
-    // const card3Style = {
-    //   minWidth: '275px',
-    //   backgroundColor: '#c41849', // Color for card 2
-    //   color: '#fff',
-    //   transition: 'transform 0.3s', // Add smooth transition on hover
-    //   borderRadius: '10px', // Rounded corners for aesthetics
-    //   cursor: 'pointer', // Change cursor on hover
-    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-    //   margin: '10px', // Add some margin around the card
-    // };
-    // const card4Style = {
-    //   minWidth: '275px',
-    //   backgroundColor: '#03a5fc', // Color for card 2
-    //   color: '#fff',
-    //   transition: 'transform 0.3s', // Add smooth transition on hover
-    //   borderRadius: '10px', // Rounded corners for aesthetics
-    //   cursor: 'pointer', // Change cursor on hover
-    //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add shadow for depth
-    //   margin: '10px', // Add some margin around the card
-    // };
-  
-    // const cardContentStyle = {
-    //   display: 'flex',
-    //   justifyContent: 'space-between',
-    //   alignItems: 'center',
-    //   padding: '16px',
-    // };
-  
-    // const iconStyle = {
-    //   fontSize: '40px',
-    // };
-    // const headFont ={
-    //   fontSize : '30px'
-    // }
-  
-    // const textContainerStyle = {
-    //   textAlign: 'right',
-    // };
-
-    // const [isHovered, setIsHovered] = useState(false);
-
-export default function Data() {
-
- 
-    const [data,setData] = useState([]);
     useEffect(()=>{
   
       authFetch.get("/api/products/").then(y=>{
@@ -261,6 +160,7 @@ export default function Data() {
      <CardUse data={data}/>
     <div style={{ height: 400, width: '100%' }}>
     <DataGrid
+      
       rows={data}
       columns={columns}
       initialState={{
@@ -277,3 +177,4 @@ export default function Data() {
   </>
   )
 }
+

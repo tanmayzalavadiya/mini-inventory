@@ -6,7 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import authFetch from './interceptors'
 
-const ProductsForm = () => {
+const EditProduct = () => {
   const modules = {
     toolbar: [
       [{ 'font': [] }, { 'size': [] }],
@@ -59,7 +59,7 @@ const ProductsForm = () => {
 
   return (
     <div className="form-container">
-      <h1>Add New Product</h1>
+      <h1>Edit Product</h1>
       <Formik
         initialValues={{
           name: '',
@@ -120,4 +120,4 @@ const ProductsForm = () => {
   )
 }
 
-export default ProductsForm
+export default EditProduct
