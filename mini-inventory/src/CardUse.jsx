@@ -43,7 +43,7 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "inherit",
   color: "#fff",
   cursor: "pointer",
-  fontSize: 30,
+  fontSize: 20,
   boxShadow: "none",
   margin: 0,
   pl: 0,
