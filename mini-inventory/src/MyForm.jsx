@@ -48,26 +48,26 @@ const ProductsForm = () => {
   
     // Validation schema using Yup
   const validationSchema = Yup.object({
-    productName: Yup.string().required('Product Name is required'),
-    productCategory: Yup.string().required('Product Category is required'),
-    productPrice: Yup.number()
+    name: Yup.string().required('Product Name is required'),
+    category: Yup.string().required('Product Category is required'),
+    price: Yup.number()
       .required('Product Price is required')
       .positive('Product Price must be positive'),
-    productQuantity: Yup.number()
+      quantity: Yup.number()
       .required('Product Quantity is required')
       .min(0, 'Product Quantity cannot be negative'),
-    productDescription: Yup.string().required('Product Description is required'),
+      description: Yup.string().required('Product Description is required'),
   });
   return (
     <div className="form-container">
       <h1>Add New Product</h1>
       <Formik
         initialValues={{
-          productName: '',
-          productCategory: '',
-          productPrice: '',
-          productQuantity: '',
-          productDescription: '',
+          name: '',
+          category: '',
+          price: '',
+          quantity: '',
+          description: '',
         }}
         validationSchema={validationSchema}
          onSubmit={handleSubmit}
@@ -76,39 +76,39 @@ const ProductsForm = () => {
         {({ isSubmitting, setFieldValue, values }) => (
           <Form>
             <div className="form-group">
-              <label htmlFor="productName">Product Name</label>
-              <Field type="text" name="productName" className="form-field" />
-              <ErrorMessage name="productName" component="div" className="error-message" />
+              <label htmlFor="name">Product Name</label>
+              <Field type="text" name="name" className="form-field" />
+              <ErrorMessage name="name" component="div" className="error-message" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="productCategory">Product Category</label>
-              <Field type="text" name="productCategory" className="form-field" />
-              <ErrorMessage name="productCategory" component="div" className="error-message" />
+              <label htmlFor="category">Product Category</label>
+              <Field type="text" name="category" className="form-field" />
+              <ErrorMessage name="category" component="div" className="error-message" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="productPrice">Product Price</label>
-              <Field type="number" name="productPrice" className="form-field" />
-              <ErrorMessage name="productPrice" component="div" className="error-message" />
+              <label htmlFor="price">Product Price</label>
+              <Field type="number" name="price" className="form-field" />
+              <ErrorMessage name="price" component="div" className="error-message" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="productQuantity">Product Quantity</label>
-              <Field type="number" name="productQuantity" className="form-field" />
-              <ErrorMessage name="productQuantity" component="div" className="error-message" />
+              <label htmlFor="quantity">Product Quantity</label>
+              <Field type="number" name="quantity" className="form-field" />
+              <ErrorMessage name="quantity" component="div" className="error-message" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="productDescription">Product Description</label>
+              <label htmlFor="description">Product Description</label>
               <ReactQuill
                 theme="snow"
-                value={values.productDescription}
-                onChange={(value) => setFieldValue('productDescription', value)}
+                value={values.description}
+                onChange={(value) => setFieldValue('description', value)}
                 modules={modules}
                 formats={formats}
               />
-              <ErrorMessage name="productDescription" component="div" className="error-message" />
+              <ErrorMessage name="description" component="div" className="error-message" />
             </div>
 
             <button type="submit" disabled={isSubmitting} className="submit-button">
