@@ -118,7 +118,7 @@ const columns = [
   const handleClick = (event, params) => {
     // setAnchorEl(event.currentTarget);
     console.log(params.row.id);
-    setId([params.row.id]);
+    setId(params.row.id);
   };
   const manageEdit = (e) => {
     opende();
@@ -134,16 +134,18 @@ const columns = [
   const handleDeleteOpen = (params) => {
     dsetOpen(true);
     handleClose();
-    setId([params.row.id]);
+    setId(params.row.id);
     console.log(params.row.id);
   };
-  const deleteData = () => {
+  const deleteData = async () => {
     console.log(id);
     authFetch.delete(`/api/products/${id}`).then((y) => {
+      setData(data.filter(item => item.id !== id[0]));
       console.log(y);
     });
 
-    dhandleClose();
+    await dhandleClose();
+    await setId();
   };
 
     useEffect(()=>{
@@ -241,10 +243,10 @@ const columns = [
         }}
       >
         
-          <MenuItem onClick={manageEdit}>
+          {/* <MenuItem onClick={manageEdit}>
           <EditNoteIcon sx={{ color: blue[500] }} />
             Edit
-          </MenuItem>
+          </MenuItem> */}
 
           
           {/* <MenuItem onClick={handleDeleteOpen}>

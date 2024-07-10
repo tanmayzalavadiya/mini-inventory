@@ -31,18 +31,23 @@ const EditProduct = () => {
     'link', 'image', 'align', 'color', 'background'
   ];
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    authFetch.post("/api/products/", values)
-      .then(response => {
-        console.log(response.data);
-        // Handle success (e.g., redirect, show notification, etc.)
-        setSubmitting(false);
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
-        // Handle error (e.g., show error message)
-        setSubmitting(false);
-      });
+  // const handleSubmit = (values, { setSubmitting }) => {
+  //   authFetch.post("/api/products/", values)
+  //     .then(response => {
+  //       console.log(response.data);
+  //       // Handle success (e.g., redirect, show notification, etc.)
+  //       // setSubmitting(false);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error submitting form:', error);
+  //       // Handle error (e.g., show error message)
+  //       // setSubmitting(false);
+  //     });
+  // };
+
+  const handleSubmit = (values) => {
+    console.log(values)
+    navv("/myproduct")
   };
   
   
@@ -114,7 +119,7 @@ const EditProduct = () => {
               <ErrorMessage name="description" component="div" className="error-message" />
             </div>
 
-  <button type="submit" disabled={isSubmitting} className="submit-button" onClick={()=>{navv("/myproduct")}}>
+  <button type="submit"  className="submit-button">
               Submit
             </button>
           </Form>
