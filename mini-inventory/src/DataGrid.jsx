@@ -86,7 +86,9 @@ const columns = [
       </Fab>
       <Fab style={{ backgroundColor: 'red', color: '#fff' }}  size="small" color="secondary" aria-label="edit">
         <DeleteIcon sx={{ fontSize: 20 }}
-        onClick={handleDeleteOpen}/>
+        onClick={()=>{
+          handleDeleteOpen(params)
+        }}/>
       </Fab>
 
       <Fab style={{ backgroundColor: 'purple', color: '#fff' }}  size="small"  aria-label="like">
@@ -116,7 +118,7 @@ const columns = [
   const handleClick = (event, params) => {
     // setAnchorEl(event.currentTarget);
     console.log(params.row.id);
-    // data([params.row.id]);
+    setId([params.row.id]);
   };
   const manageEdit = (e) => {
     opende();
@@ -129,10 +131,11 @@ const columns = [
     dsetOpen(false);
   };
 
-
-  const handleDeleteOpen = () => {
+  const handleDeleteOpen = (params) => {
     dsetOpen(true);
     handleClose();
+    setId([params.row.id]);
+    console.log(params.row.id);
   };
   const deleteData = () => {
     console.log(id);
