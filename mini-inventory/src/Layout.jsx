@@ -21,9 +21,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
 
-
-
-
 const withTitle = (Component) => {
   
 

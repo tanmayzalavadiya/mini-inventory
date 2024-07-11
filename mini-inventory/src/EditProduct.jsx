@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { Formik, Form, Field,ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Products/ProStyle.css'
@@ -6,6 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import authFetch from './interceptors'
 import { useNavigate } from 'react-router-dom';
+
 
 
 const EditProduct = () => {
@@ -65,6 +67,20 @@ const EditProduct = () => {
   });
 
   const [id, setid] = React.useState([]);
+
+  
+  useEffect(()=>{
+  
+    authFetch.get("/api/products/").then(y=>{
+
+      formik.setValues({
+        
+        ...y.data
+       
+          });
+    })
+
+  },[])
 
   return (
     <div className="form-container">

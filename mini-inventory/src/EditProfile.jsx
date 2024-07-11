@@ -126,6 +126,7 @@ const EditProfile = () => {
 
   const handleEditClick = () => {
     setIsEditMode(true);
+    navv("/EditFullProfileForm")
   };
 
   const validationSchema = Yup.object().shape({
@@ -134,6 +135,8 @@ const EditProfile = () => {
     phone: Yup.string().required('Phone is required'),
     bio: Yup.string()
   });
+
+  
 
   const handleSubmit = (values, { setSubmitting }) => {
     // Handle form submission logic here
@@ -210,7 +213,7 @@ const EditProfile = () => {
               <ProfileLabel>Bio:</ProfileLabel>
               <ProfileText>{profileData.bio}</ProfileText>
             </ProfileField>
-            <SubmitButton onClick={()=>{handleEditClick}} >
+            <SubmitButton onClick={handleEditClick} >
               Edit Profile
             </SubmitButton>
           </>
