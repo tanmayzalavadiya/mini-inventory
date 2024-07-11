@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import authFetch from './interceptors'
+import { useNavigate } from 'react-router-dom';
+
 
 
 const ProfileFormContainer = styled.div`
@@ -92,6 +94,9 @@ const ErrorMessageStyled = styled(ErrorMessage)`
 `;
 
 const EditProfile = () => {
+
+  const navv = useNavigate()
+
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
@@ -152,7 +157,12 @@ const EditProfile = () => {
             enableReinitialize
             initialValues={profileData}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+            onSubmit={() => {
+          {handleClick}
+          navv("/EditFullProfileForm")
+        }}
+            
+
           >
             {({ isSubmitting }) => (
               <Form>
@@ -200,7 +210,7 @@ const EditProfile = () => {
               <ProfileLabel>Bio:</ProfileLabel>
               <ProfileText>{profileData.bio}</ProfileText>
             </ProfileField>
-            <SubmitButton onClick={handleEditClick}>
+            <SubmitButton onClick={()=>{handleEditClick}} >
               Edit Profile
             </SubmitButton>
           </>

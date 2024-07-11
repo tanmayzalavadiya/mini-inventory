@@ -14,6 +14,7 @@ import Data from './DataGrid'
 import EditProduct from './EditProduct'
 import ProductDetailForm from './ProductDetailForm'
 import EditProfile from './EditProfile'
+import EditProfileForm from './EditProfileForm'
 
 
 
@@ -25,6 +26,8 @@ function App() {
   const EditForm = withTitle(EditProduct)
   const ProductDetail = withTitle(ProductDetailForm)
   const ProfileForm = withTitle(EditProfile)
+  const EditFullProfileForm = withTitle(EditProfileForm)
+
 
 
 
@@ -61,6 +64,8 @@ function App() {
         <Route path='/EditProduct' element={<EditForm/>}/>
         <Route path='/ProductDetailForm' element={<ProductDetail/>}/>
         <Route path='/ProfileForm' element={<ProfileForm/>}/>
+        <Route path='/EditFullProfileForm' element={<EditFullProfileForm/>}/>
+
 
 
 

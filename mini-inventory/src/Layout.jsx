@@ -111,7 +111,9 @@ const withTitle = (Component) => {
     { text: 'Dashboard', path: '/' },
     { text: 'Grid', path: '/myproduct' },
     { text: 'Products', path: '/ProductsForm' },
-    // { text: 'Drafts', path: '/drafts' }
+    { text: 'Profile', path: '/ProfileForm' },
+    { text: 'EditFullProfileForm', path: '/EditFullProfileForm' }
+
   ];
 
       return (
