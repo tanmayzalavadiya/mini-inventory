@@ -2,6 +2,12 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import authFetch from '../axiosbase/interceptors';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const ProfileFormContainer = styled.div`
   display: flex;
@@ -81,12 +87,16 @@ const ErrorMessageStyled = styled(ErrorMessage)`
 `;
 
 const EditProfileForm = () => {
-  const initialValues = {
-    name: 'Tanmay',
-    email: 'tanmay@gmail.com',
-    phone: '+213',
-    bio: ''
-  };
+  const navv = useNavigate()
+
+
+  const [data, setData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    quantity: "",
+    description: "",
+  });
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -98,8 +108,26 @@ const EditProfileForm = () => {
   const handleSubmit = (values, { setSubmitting }) => {
     // Handle form submission logic here
     console.log(values);
+    authFetch.patch(`/api/users/updateuser`,values).then((y)=>{
+      console.log(y);
+      toast.success("User updated successfully");
+      navv('/ProfileForm')
+    })
     setSubmitting(false);
   };
+
+  useEffect(() => {
+    authFetch.get(`/api/users/getuser`).then((y) => {
+      console.log(y.data);
+      setData({
+        email: y.data.email,
+        name: y.data.name,
+        phone: y.data.phone,
+        photo: y.data.photo,
+        bio:'',
+      });
+    });
+  }, []);
 
   return (
     <>
@@ -110,7 +138,8 @@ const EditProfileForm = () => {
       </ProfilePhoto>
       <ProfileData>
         <Formik
-          initialValues={initialValues}
+          initialValues={data}
+          enableReinitialize={true}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >

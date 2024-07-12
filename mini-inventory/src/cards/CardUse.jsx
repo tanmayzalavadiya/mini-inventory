@@ -76,6 +76,9 @@ const cardStyles = [
 ];
 
 export default function CardUse({ data }) {
+  const storeValue = data.reduce((pre,cur)=>{
+    return pre + (cur.price*cur.quantity);
+  },0);
   return (
     <div style={cardContainerStyle}>
       {cardStyles.map((style, index) => (
@@ -95,7 +98,12 @@ export default function CardUse({ data }) {
                   {index === 2 && "Out of Stock"}
                   {index === 3 && "All Categories"}
                 </Item>
-                <Item>8</Item> {/* Example data usage */}
+                <Item>
+                  {index === 0 && data.length}
+                  {index === 1 && storeValue}
+                  {index === 2 && "Out of Stock"}
+                  {index === 3 && "All Categories"}
+                  </Item> {/* Example data usage */}
               </Grid>
             </Grid>
           </CardContent>

@@ -97,27 +97,14 @@ const EditProfile = () => {
 
   const navv = useNavigate()
 
-  const [profileData, setProfileData] = useState({
-    name: '',
-    email: '',
-    photo: '',
-    phone: '',
-    bio: ''
-  });
+  const [profileData, setProfileData] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     // Fetch data from API
     authFetch.get('/api/users/getuser')
-      .then(response => {
-        const data = response.data;
-        setProfileData({
-          name: data.name,
-          email: data.email,
-          photo: data.photo,
-          phone: data.phone,
-          bio: data.bio || ''
-        });
+      .then((y) => {
+        setProfileData(y.data)
       })
       .catch(error => {
         console.error('Error fetching profile data:', error);
