@@ -1,8 +1,8 @@
 import React from 'react';
 import './DashStyle.css'
-import pro1 from './assets/pro1.png'
-import InventoryControl from './assets/InventoryControl.webp'
-import featureBanner from './assets/featurebanner.png'
+import pro1 from '../assets/pro1.png'
+import InventoryControl from '../assets/InventoryControl.webp'
+import featureBanner from '../assets/featurebanner.png'
 
 const Dashboard = () => {
   return (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import authFetch from './interceptors'
+import authFetch from './axiosbase/interceptors';
 import { useEffect, useState } from 'react'
 // cards
 import Box from '@mui/material/Box';
@@ -25,7 +25,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import { blue ,red,grey} from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CardUse from './CardUse';
+import CardUse from './cards/CardUse'
 import { useNavigate } from 'react-router-dom';
 // delete
 import Dialog from "@mui/material/Dialog";

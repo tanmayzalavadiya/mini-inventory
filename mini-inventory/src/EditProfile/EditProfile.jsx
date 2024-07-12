@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import authFetch from './interceptors'
+import authFetch from '../axiosbase/interceptors';
 import { useNavigate } from 'react-router-dom';
 
 

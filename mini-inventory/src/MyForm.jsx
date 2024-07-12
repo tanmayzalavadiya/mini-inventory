@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import './Products/ProStyle.css'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import authFetch from './interceptors'
+import authFetch from './axiosbase/interceptors';
 
 const ProductsForm = () => {
   const modules = {

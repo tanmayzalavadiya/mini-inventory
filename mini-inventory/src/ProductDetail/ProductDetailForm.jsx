@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import './ProductDetail.css';
-import authFetch from './interceptors'
+import authFetch from '../axiosbase/interceptors';
 import { useNavigate } from 'react-router-dom';
 
 const ProductDetailForm = () => {
@@ -28,8 +28,8 @@ const ProductDetailForm = () => {
     }
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    axios.post('/api/products/', values)
+  const handleSubmit = (id,values, { setSubmitting }) => {
+    axios.post(`/api/products/${id}`, values)
       .then(response => {
         console.log(response.data);
         setSubmitting(false);

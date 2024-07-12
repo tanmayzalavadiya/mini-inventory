@@ -46,24 +46,7 @@ const EditProfile = () => {
     try {
       // Handle Image upload
       let imageURL;
-      if (
-        profileImage &&
-        (profileImage.type === "image/jpeg" ||
-          profileImage.type === "image/jpg" ||
-          profileImage.type === "image/png")
-      ) {
-        const image = new FormData();
-        image.append("file", profileImage);
-        image.append("cloud_name", "zinotrust");
-        image.append("upload_preset", "wk66xdkq");
-
-        // First save image to cloudinary
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/zinotrust/image/upload",
-          { method: "post", body: image }
-        );
-        const imgData = await response.json();
-        imageURL = imgData.url.toString();
+      // 
 
         // Save Profile
         const formData = {
@@ -78,7 +61,7 @@ const EditProfile = () => {
         toast.success("User updated");
         navigate("/profile");
         setIsLoading(false);
-      }
+      
     } catch (error) {
       console.log(error);
       setIsLoading(false);

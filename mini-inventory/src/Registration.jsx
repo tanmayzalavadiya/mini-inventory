@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import authFetch from './interceptors'
+import authFetch from './axiosbase/interceptors';
 
 
 
