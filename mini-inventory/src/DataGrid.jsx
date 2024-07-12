@@ -37,14 +37,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-
-
 export default function Data () {
 
 const [data,setData] = useState([]);
 const [id,setId] = useState();
 const navv = useNavigate()
-
 
 
 const columns = [

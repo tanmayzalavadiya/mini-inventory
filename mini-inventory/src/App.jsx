@@ -15,6 +15,7 @@ import EditProduct from './EditProduct/EditProduct'
 import ProductDetailForm from './ProductDetail/ProductDetailForm'
 import EditProfile from './EditProfile/EditProfile'
 import EditProfileForm from './EditProfile/EditProfileForm'
+import Report from './Report Bug/Report'
 
 
 
@@ -26,6 +27,7 @@ function App() {
   const ProductDetail = withTitle(ProductDetailForm)
   const ProfileForm = withTitle(EditProfile)
   const EditFullProfileForm = withTitle(EditProfileForm)
+  const ReportBug = withTitle(Report)
 
 
 
@@ -48,9 +50,7 @@ function App() {
         <Route path='/ProductDetailForm/:id' element={<ProductDetail/>}/>
         <Route path='/ProfileForm' element={<ProfileForm/>}/>
         <Route path='/EditFullProfileForm' element={<EditFullProfileForm/>}/>
-
-
-        
+        <Route path='/ReportBug' element={<ReportBug/>}/>
       </Routes>
     </>
   )
