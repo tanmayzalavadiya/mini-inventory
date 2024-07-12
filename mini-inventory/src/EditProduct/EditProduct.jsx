@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Formik, Form, Field,ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import '../Products/ProStyle.css'
@@ -7,10 +7,13 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import authFetch from '../axiosbase/interceptors';
 import { useNavigate,useParams  } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 
 
 const EditProduct = () => {
+  const {id} = useParams();
     const navv = useNavigate()
 
   const modules = {
@@ -33,26 +36,36 @@ const EditProduct = () => {
     'link', 'image', 'align', 'color', 'background'
   ];
 
-  // const handleSubmit = (values, { setSubmitting }) => {
-  //   authFetch.post("/api/products/", values)
-  //     .then(response => {
-  //       console.log(response.data);
-  //       // Handle success (e.g., redirect, show notification, etc.)
-  //       // setSubmitting(false);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error submitting form:', error);
-  //       // Handle error (e.g., show error message)
-  //       // setSubmitting(false);
-  //     });
-  // };
+  const [productData, setProductData] = useState({
+    name: '',
+    category: '',
+    price: '',
+    quantity: '',
+    description: ''
+  });
 
   const handleSubmit = (values) => {
     console.log(values)
-    navv("/myproduct")
+    authFetch.patch(`/api/products/${id}`,values).then((y)=>{
+      console.log(y);
+      toast.success("Product updated successfully");
+      navv('/myproduct')
+    })
   };
   
-  
+  useEffect(() => {
+    authFetch.get(`/api/products/${id}`).then((y) => {
+      console.log(y.data);
+      setProductData({
+        name: y.data.name,
+        category: y.data.category,
+        price: y.data.price,
+        quantity: y.data.quantity,
+        description: y.data.description,
+      });
+    });
+  }, []);
+
     // Validation schema using Yup
   const validationSchema = Yup.object({
     name: Yup.string().required('Product Name is required'),
@@ -66,27 +79,23 @@ const EditProduct = () => {
       description: Yup.string().required('Product Description is required'),
   });
 
-  const [id, setid] = React.useState([]);
+  // const [id, setid] = React.useState([]);
   // const {id} = useParams()
 
+  
 
   return (
     <div className="form-container">
       <h1>Edit Product</h1>
       <Formik
-        initialValues={{
-          name: '',
-          category: '',
-          price: '',
-          quantity: '',
-          description: '',
-        }}
+        initialValues={productData}
+        enableReinitialize={true}
         validationSchema={validationSchema}
          onSubmit={handleSubmit}
         
       >
         {({ isSubmitting, setFieldValue, values }) => (
-          <Form setid={setid}>
+          <Form >
             <div className="form-group">
               <label htmlFor="name">Product Name</label>
               <Field type="text" name="name" className="form-field" />

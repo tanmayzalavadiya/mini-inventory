@@ -61,7 +61,7 @@ function App() {
         <Route path='/ProductsForm' element={<ProductForm/>}/>
         {/* <Route path='/myproduct' element={<ProductForm/>}/> */}
         <Route path='/myproduct' element={<ProductData/>}/>
-        <Route path='/EditProduct' element={<EditForm/>}/>
+        <Route path='/EditProduct/:id' element={<EditForm/>}/>
         <Route path='/ProductDetailForm' element={<ProductDetail/>}/>
         <Route path='/ProfileForm' element={<ProfileForm/>}/>
         <Route path='/EditFullProfileForm' element={<EditFullProfileForm/>}/>

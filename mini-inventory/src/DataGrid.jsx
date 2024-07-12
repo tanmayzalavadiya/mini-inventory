@@ -80,7 +80,7 @@ const columns = [
         onClick={(event) => {
           handleClick(event, params);
           navv("/EditProduct")
-          {manageEdit}
+          {manageEdit(params)}
         }}
         />
       </Fab>
@@ -120,10 +120,10 @@ const columns = [
     console.log(params.row.id);
     setId(params.row.id);
   };
-  const manageEdit = (e) => {
-    opende();
+  const manageEdit = (params) => {
     handleClose();
-    setAction("edit");
+    setId(params.row.id);
+    navv(`/EditProduct/${params.row.id}`)
   };
   
   // delete
