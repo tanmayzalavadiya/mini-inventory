@@ -93,9 +93,9 @@ const columns = [
 
       <Fab style={{ backgroundColor: 'purple', color: '#fff' }}  size="small"  aria-label="like">
         <VisibilityIcon sx={{ fontSize: 20 }}
-          onClick={() => {
+          onClick={(event) => {
            // handleClick(event, params);
-            navv("/ProductDetailForm")
+           handleView(event, params);
           }}
         />
       </Fab>
@@ -147,6 +147,13 @@ const columns = [
     await dhandleClose();
     await setId();
   };
+
+
+  const handleView = (event, params) => {
+   
+    navv(`/ProductDetailForm/${params.row.id}`);
+  };
+
 
     useEffect(()=>{
   

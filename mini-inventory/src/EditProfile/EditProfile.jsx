@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import authFetch from '../axiosbase/interceptors';
 import { useNavigate } from 'react-router-dom';
+import { colors } from '@mui/material';
 
 
 
@@ -136,7 +137,7 @@ const EditProfile = () => {
 
   return (
     <>
-              <h1>Welcome, Tanmay</h1>
+      <h1>Welcome, Tanmay</h1>
     <ProfileFormContainer>
       <ProfilePhoto>
         <ProfilePhotoImg src={profileData.photo} alt="Profile" />

@@ -3,165 +3,118 @@ import { Formik, Form, Field } from 'formik';
 import './ProductDetail.css';
 import authFetch from '../axiosbase/interceptors';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Grid,Typography } from '@mui/material';
+import { red } from '@mui/material/colors';
 
 const ProductDetailForm = () => {
+  const {id} = useParams();
+
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-  const fetchProductData = async (setValues) => {
-    try {
-      const response = await authFetch.get(`/api/products/${id}`); // Replace with your API endpoint
-      const product = response.data;
+  const [data, setData] = useState([]);
 
-      setValues({
-        name: product.name,
-        sku: product.sku,
-        category: product.category,
-        price: product.price,
-        quantity: product.quantity,
-        totalValue: product.totalValue,
-        description: product.description,
-        createdAt: product.createdAt,
-        updatedAt: product.updatedAt,
-      });
-    } catch (error) {
-      console.error('There was an error fetching the product data!', error);
-    }
-  };
+  useEffect(() => {
+    authFetch.get(`/api/products/${id}`).then((y) => {
+      setData(y.data);
+    });
+  }, []);
 
-  const handleSubmit = (id,values, { setSubmitting }) => {
-    axios.post(`/api/products/${id}`, values)
-      .then(response => {
-        console.log(response.data);
-        setSubmitting(false);
-        navigate('/myproduct');
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
-        setSubmitting(false);
-      });
-  };
+  // const fetchProductData = async (setValues) => {
+  //   try {
+  //     const response = await authFetch.get(`/api/products/${id}`); 
+  //     const product = response.data;
 
-//   useEffect(() => {
-//     axios.get('https://api.example.com/product/1')
-//       .then(response => {
-//         setProduct(response.data);
-//       })
-//       .catch(error => {
-//         console.error('There was an error fetching the product data!', error);
-//       });
-//   }, []);
+  //     setValues({
+  //       name: product.name,
+  //       sku: product.sku,
+  //       category: product.category,
+  //       price: product.price,
+  //       quantity: product.quantity,
+  //       totalValue: product.totalValue,
+  //       description: product.description,
+  //       createdAt: product.createdAt,
+  //       updatedAt: product.updatedAt,
+  //     });
+  //   } catch (error) {
+  //     console.error('There was an error fetching the product data!', error);
+  //   }
+  // };
 
-//   if (!product) {
-//     return <div>Loading...</div>;
-//   }
+  // const handleSubmit = (id, values, { setSubmitting }) => {
+  //   authFetch.post(`/api/products/${id}`, values)
+  //     .then(y => {
+  //       console.log(y.data);
+  //       setSubmitting(false);
+  //       navigate('/myproduct');
+  //     })
+  //     .catch(error => {
+  //       console.error('Error submitting form:', error);
+  //       setSubmitting(false);
+  //     });
+  // };
 
-//   const {
-//     name,
-//     sku,
-//     category,
-//     price,
-//     quantity,
-//     totalValue,
-//     description,
-//     createdAt,
-//     updatedAt
-//   } = product;
-
-//   const handleSubmit = (values, { setSubmitting }) => {
-//     authFetch.get(`/api/products/${id}`)
-//       .then(response => {
-//         console.log(response.data);
-//         setProduct(response.data);
-//         // Handle success (e.g., redirect, show notification, etc.)
-//         setSubmitting(false);
-//       })
-//       .catch(error => {
-//         console.error('Error submitting form:', error);
-//         // Handle error (e.g., show error message)
-//         setSubmitting(false);
-//       });
-//   };
-  
 
   return (
-    <div className="form-container">
-      <h1>Product Detail</h1>
-      <p>No image set for this product</p>
-      <p>Product Availability: In Stock</p>
-      <Formik
-        initialValues={{
-          name: '',
-          sku: '',
-          category: '',
-          price: '',
-          quantity: '',
-          totalValue: '',
-          description: '',
-          createdAt: '',
-          updatedAt: ''
-        }}
-        onSubmit={handleSubmit}
-      >
-                {({ isSubmitting, setValues }) => {
-          useEffect(() => {
-            fetchProductData(setValues);
-          }, [setValues]);
-
-          return (
-            <Form>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <Field name="name" type="text" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="sku">SKU</label>
-                <Field name="sku" type="text" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="category">Category</label>
-                <Field name="category" type="text" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="price">Price</label>
-                <Field name="price" type="number" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="quantity">Quantity in stock</label>
-                <Field name="quantity" type="number" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="totalValue">Total Value in stock</label>
-                <Field name="totalValue" type="number" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="description">Description</label>
-                <Field name="description" as="textarea" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="createdAt">Created on</label>
-                <Field name="createdAt" type="text" className="form-field" disabled />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="updatedAt">Last Updated</label>
-                <Field name="updatedAt" type="text" className="form-field" disabled />
-              </div>
-
-              <button type="submit" disabled={isSubmitting} className="submit-button">
-                Submit
-              </button>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+    <Grid container spacing={2} className="form-container">
+    <Grid item xs={12}>
+      <Typography variant="h4" component="h1">Product Detail</Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <Typography variant="body1">No image set for this product</Typography>
+      <Typography variant="body1">Product Availability: In Stock</Typography>
+    </Grid>
+    <Formik
+      initialValues={data}
+      enableReinitialize 
+    >
+          <Form>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Name</Typography>
+                <Field name="name" type="text" as={Typography} variant="body2"  sx={{ color: 'red' }}  disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">SKU</Typography>
+                <Field name="sku" type="text" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Category</Typography>
+                <Field name="category" type="text" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Price</Typography>
+                <Field name="price" type="number" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Quantity in stock</Typography>
+                <Field name="quantity" type="number" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Total Value in stock</Typography>
+                <Field name="totalValue" type="number" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1">Description</Typography>
+                <Field name="description" as="textarea" className="form-field" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Created on</Typography>
+                <Field name="createdAt" type="text" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Last Updated</Typography>
+                <Field name="updatedAt" type="text" as={Typography} variant="body2" disabled fullWidth />
+              </Grid>
+              {/* <Grid item xs={12}>
+                <Button type="submit" disabled={isSubmitting} variant="contained" color="primary" fullWidth>
+                  Submit
+                </Button>
+              </Grid> */}
+            </Grid>
+          </Form>
+     
+    </Formik>
+  </Grid>
   );
 };
 

@@ -19,7 +19,6 @@ import EditProfileForm from './EditProfile/EditProfileForm'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   const ProductForm = withTitle(MyForm)
   const ProductData = withTitle(Data)
@@ -34,23 +33,7 @@ function App() {
 
   return (
     <>
-  {/* <ul>
-<li>
-  <Link to='/Login' >Login</Link>
-</li>
-<li>
-  <Link to='/Registration' >Registration</Link>
-</li>
-<li>
-  <Link to='/' >Dashboard</Link>
-</li>
-<li>
-  <Link to='/myproduct' >myproduct</Link>
-</li>
-<li>
-  <Link to='/ProductsForm' >ProductsForm</Link>
-</li>
-</ul> */}
+ 
 
 
       <Routes>
@@ -62,19 +45,11 @@ function App() {
         {/* <Route path='/myproduct' element={<ProductForm/>}/> */}
         <Route path='/myproduct' element={<ProductData/>}/>
         <Route path='/EditProduct/:id' element={<EditForm/>}/>
-        <Route path='/ProductDetailForm' element={<ProductDetail/>}/>
+        <Route path='/ProductDetailForm/:id' element={<ProductDetail/>}/>
         <Route path='/ProfileForm' element={<ProfileForm/>}/>
         <Route path='/EditFullProfileForm' element={<EditFullProfileForm/>}/>
 
 
-
-
-
-
-
-
-        {/* <Route path="/" component={<Login/>} />
-        <Redirect to="/" /> */}
         
       </Routes>
     </>
