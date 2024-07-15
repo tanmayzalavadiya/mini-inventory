@@ -6,6 +6,14 @@ import authFetch from '../axiosbase/interceptors';
 import '../ProductDetail/ProductDetail.css'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { Paper} from "@mui/material";
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import TwitterIcon from '@mui/icons-material/Twitter';
+
 
 
 
@@ -73,6 +81,8 @@ const SubmitButton = styled.button`
     background-color: #0056b3;
   }
 `;
+
+
 const Report = () => {
     
     const [data, setData] = useState({
@@ -87,48 +97,54 @@ const Report = () => {
               console.log(values);
         setSubmitting(false);
             });
-          
-        
+         
       };
-
-  
-
   return (
-    <ProfileFormContainer>
-    <ProfileData>
+    <>
       <Formik
         initialValues={data}
         enableReinitialize={true}
         onSubmit={handleSubmit}
       >
-         {({ isSubmitting, values, setValues }) => {
-            useEffect(() => {
-              setValues(data);
-            }, [data, setValues]);
-
-            return (
+                <Grid container spacing={2}>
+                <Grid item xs={6} >
               <Form>
-                <ProfileField>
+                <Grid  item xs={12}>
                   <ProfileLabel htmlFor="subject">Subject:</ProfileLabel>
                   <ProfileInput type="text" id="subject" name="subject" />
                   <ErrorMessageStyled name="subject" component="div" />
-                </ProfileField>
+                  </Grid>
 
-                <ProfileField>
+                  <Grid item xs={12}>
                   <ProfileLabel htmlFor="message">Message:</ProfileLabel>
                   <ProfileTextarea type="textarea" id="message" name="message" />
                   <ErrorMessageStyled name="message" component="div" />
-                </ProfileField>
+                  </Grid>
 
-                <SubmitButton type="submit" disabled={isSubmitting}>
+                  <Grid item xs={12}>
+                <SubmitButton type="submit" >
                   Submit
                 </SubmitButton>
+                </Grid>
               </Form>
-            );
-          }}
+                </Grid>
+
+
+                <Grid item xs={5} sx={{bgcolor : "#fff", m: 5 ,borderRadius: 1 }} >
+                <Typography>
+                    <h2>Our Contact Information</h2>
+                    <p>Fill the form or contact us via other channels listed below</p>
+                    <p><PhoneIcon/> 070123123123</p>
+                    <p><EmailIcon/>Support@invent.com</p>
+                    <p><LocationOnIcon/>Abuja, Nigeria</p>
+                    <p><TwitterIcon/>@ZinoTrust</p>
+                </Typography>
+                </Grid>
+              </Grid>
+            
       </Formik>
-    </ProfileData>
-  </ProfileFormContainer>
+
+  </>
 
   )
 }

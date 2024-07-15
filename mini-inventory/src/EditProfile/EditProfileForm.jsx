@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import authFetch from '../axiosbase/interceptors';
 import { useNavigate } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 
 
@@ -13,6 +14,21 @@ const ProfileFormContainer = styled.div`
   display: flex;
   align-items: flex-start; /* Align items to the top */
   max-width: 800px; /* Adjust maximum width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+`;
+
+
+const PasswordFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px; /* Adjust width as needed */
+  height: 300px; /* Set height equal to width to make it square */
   margin: 0 auto; /* Center the form horizontally */
   padding: 20px;
   border: 1px solid #ccc;
@@ -102,7 +118,14 @@ const EditProfileForm = () => {
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     phone: Yup.string().required('Phone is required'),
-    bio: Yup.string()
+    bio: Yup.string(),
+    oldPassword: Yup.string().required('Old Password is required'),
+    newPassword: Yup.string()
+      .min(8, 'New Password must be at least 8 characters')
+      .required('New Password is required'),
+    confirmNewPassword: Yup.string()
+      .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+      .required('Confirm New Password is required'),
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -115,6 +138,11 @@ const EditProfileForm = () => {
     })
     setSubmitting(false);
   };
+
+  // const handleSubmit = (values) => {
+  //   console.log(values);
+  //   // Handle the form submission, e.g., send the data to an API
+  // };
 
   useEffect(() => {
     authFetch.get(`/api/users/getuser`).then((y) => {
@@ -131,48 +159,89 @@ const EditProfileForm = () => {
 
   return (
     <>
-    <h1>Welcome, Tanmay</h1>
-    <ProfileFormContainer>
-      <ProfilePhoto>
-        <ProfilePhotoImg src="profile-pic-url" alt="Profile" />
-      </ProfilePhoto>
-      <ProfileData>
-        <Formik
-          initialValues={data}
-          enableReinitialize={true}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <ProfileField>
-                <ProfileLabel htmlFor="name">Name:</ProfileLabel>
-                <ProfileInput type="text" id="name" name="name" />
-                <ErrorMessageStyled name="name" component="div" />
-              </ProfileField>
-              <ProfileField>
-                <ProfileLabel htmlFor="email">Email:</ProfileLabel>
-                <ProfileInput type="email" id="email" name="email" />
-                <ErrorMessageStyled name="email" component="div" />
-              </ProfileField>
-              <ProfileField>
-                <ProfileLabel htmlFor="phone">Phone:</ProfileLabel>
-                <ProfileInput type="text" id="phone" name="phone" />
-                <ErrorMessageStyled name="phone" component="div" />
-              </ProfileField>
-              <ProfileField>
-                <ProfileLabel htmlFor="bio">Bio:</ProfileLabel>
-                <ProfileTextarea as="textarea" id="bio" name="bio" />
-                <ErrorMessageStyled name="bio" component="div" />
-              </ProfileField>
-              <SubmitButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting...' : 'Edit Profile'}
-              </SubmitButton>
-            </Form>
-          )}
-        </Formik>
-      </ProfileData>
-    </ProfileFormContainer>
+      <h1>Welcome, Tanmay</h1>
+      <Grid container spacing={2}>
+        <Grid item xs={6} sx={{borderRadius: 1 }}>
+          <ProfileFormContainer>
+            <ProfilePhoto>
+              <ProfilePhotoImg src="profile-pic-url" alt="Profile" />
+            </ProfilePhoto>
+            <ProfileData>
+              <Formik
+                initialValues={data}
+                enableReinitialize={true}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <ProfileField>
+                      <ProfileLabel htmlFor="name">Name:</ProfileLabel>
+                      <ProfileInput type="text" id="name" name="name" />
+                      <ErrorMessageStyled name="name" component="div" />
+                    </ProfileField>
+                    <ProfileField>
+                      <ProfileLabel htmlFor="email">Email:</ProfileLabel>
+                      <ProfileInput type="email" id="email" name="email" />
+                      <ErrorMessageStyled name="email" component="div" />
+                    </ProfileField>
+                    <ProfileField>
+                      <ProfileLabel htmlFor="phone">Phone:</ProfileLabel>
+                      <ProfileInput type="text" id="phone" name="phone" />
+                      <ErrorMessageStyled name="phone" component="div" />
+                    </ProfileField>
+                    <ProfileField>
+                      <ProfileLabel htmlFor="bio">Bio:</ProfileLabel>
+                      <ProfileTextarea as="textarea" id="bio" name="bio" />
+                      <ErrorMessageStyled name="bio" component="div" />
+                    </ProfileField>
+                    <SubmitButton type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? 'Submitting...' : 'Edit Profile'}
+                    </SubmitButton>
+                  </Form>
+                )}
+              </Formik>
+            </ProfileData>
+          </ProfileFormContainer>
+        </Grid>
+        <Grid item xs={6} sx={{borderRadius: 1 }} >
+          <PasswordFormContainer>
+            <Formik
+              initialValues={{
+                oldPassword: '',
+                newPassword: '',
+                confirmNewPassword: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <ProfileField>
+                    <ProfileLabel htmlFor="oldPassword">Old Password:</ProfileLabel>
+                    <ProfileInput type="password" id="oldPassword" name="oldPassword" />
+                    <ErrorMessageStyled name="oldPassword" component="div" />
+                  </ProfileField>
+                  <ProfileField>
+                    <ProfileLabel htmlFor="newPassword">New Password:</ProfileLabel>
+                    <ProfileInput type="password" id="newPassword" name="newPassword" />
+                    <ErrorMessageStyled name="newPassword" component="div" />
+                  </ProfileField>
+                  <ProfileField>
+                    <ProfileLabel htmlFor="confirmNewPassword">Confirm New Password:</ProfileLabel>
+                    <ProfileInput type="password" id="confirmNewPassword" name="confirmNewPassword" />
+                    <ErrorMessageStyled name="confirmNewPassword" component="div" />
+                  </ProfileField>
+                  <SubmitButton type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Change Password'}
+                  </SubmitButton>
+                </Form>
+              )}
+            </Formik>
+          </PasswordFormContainer>
+        </Grid>
+      </Grid>
+
     </>
   );
 };
