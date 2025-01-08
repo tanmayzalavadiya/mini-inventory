@@ -119,13 +119,6 @@ const EditProfileForm = () => {
     email: Yup.string().email('Invalid email').required('Email is required'),
     phone: Yup.string().required('Phone is required'),
     bio: Yup.string(),
-    oldPassword: Yup.string().required('Old Password is required'),
-    newPassword: Yup.string()
-      .min(8, 'New Password must be at least 8 characters')
-      .required('New Password is required'),
-    confirmNewPassword: Yup.string()
-      .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
-      .required('Confirm New Password is required'),
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -144,6 +137,18 @@ const EditProfileForm = () => {
   //   // Handle the form submission, e.g., send the data to an API
   // };
 
+
+  const passwordValidationSchema = Yup.object().shape({
+    oldPassword: Yup.string().required('Old Password is required'),
+    password: Yup.string()
+      .min(8, 'New Password must be at least 8 characters')
+      .required('New Password is required'),
+    confirmNewPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm New Password is required'),
+  });
+
+
   useEffect(() => {
     authFetch.get(`/api/users/getuser`).then((y) => {
       console.log(y.data);
@@ -156,6 +161,37 @@ const EditProfileForm = () => {
       });
     });
   }, []);
+
+  const [pass,setPass] = useState({
+    oldPassword: '',
+    password: '',
+  })
+  const handlePasswordSubmit = (values, { setSubmitting }) => {
+    console.log(values);
+    authFetch.patch(`/api/users/changepassword`, values).then((y) => {
+      console.log(y);
+      toast.success("Password changed successfully");
+      setPass({
+        oldPassword: '',
+        password: '',
+      });
+    }).finally(() => {
+      setSubmitting(false);
+    });
+  };
+
+  // useEffect(() => {
+  //   authFetch.get(`/api/users/getuser`).then((response) => {
+  //     console.log(response.data);
+  //     setData({
+  //       email: response.data.email,
+  //       name: response.data.name,
+  //       phone: response.data.phone,
+  //       bio: '',
+  //     });
+  //   });
+  // }, []);
+
 
   return (
     <>
@@ -204,28 +240,25 @@ const EditProfileForm = () => {
             </ProfileData>
           </ProfileFormContainer>
         </Grid>
-        <Grid item xs={6} sx={{borderRadius: 1 }} >
+        <Grid item xs={6}  >
           <PasswordFormContainer>
-            <Formik
-              initialValues={{
-                oldPassword: '',
-                newPassword: '',
-                confirmNewPassword: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
+          <Formik
+              initialValues={pass}
+              // enableReinitialize={true}
+              validationSchema={passwordValidationSchema}
+              onSubmit={handlePasswordSubmit}
             >
               {({ isSubmitting }) => (
-                <Form>
+                <Form >
                   <ProfileField>
                     <ProfileLabel htmlFor="oldPassword">Old Password:</ProfileLabel>
                     <ProfileInput type="password" id="oldPassword" name="oldPassword" />
                     <ErrorMessageStyled name="oldPassword" component="div" />
                   </ProfileField>
                   <ProfileField>
-                    <ProfileLabel htmlFor="newPassword">New Password:</ProfileLabel>
-                    <ProfileInput type="password" id="newPassword" name="newPassword" />
-                    <ErrorMessageStyled name="newPassword" component="div" />
+                    <ProfileLabel htmlFor="password">New Password:</ProfileLabel>
+                    <ProfileInput type="password" id="password" name="password" />
+                    <ErrorMessageStyled name="password" component="div" />
                   </ProfileField>
                   <ProfileField>
                     <ProfileLabel htmlFor="confirmNewPassword">Confirm New Password:</ProfileLabel>

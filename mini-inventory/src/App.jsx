@@ -17,8 +17,6 @@ import EditProfile from './EditProfile/EditProfile'
 import EditProfileForm from './EditProfile/EditProfileForm'
 import Report from './Report Bug/Report'
 
-
-
 function App() {
 
   const ProductForm = withTitle(MyForm)
@@ -29,15 +27,8 @@ function App() {
   const EditFullProfileForm = withTitle(EditProfileForm)
   const ReportBug = withTitle(Report)
 
-
-
-
-
   return (
     <>
- 
-
-
       <Routes>
         <Route path='/Registration' element={<Registration />}/>
         <Route path='/Login' element={<Login/>}/>

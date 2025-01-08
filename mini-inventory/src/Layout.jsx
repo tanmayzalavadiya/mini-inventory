@@ -22,9 +22,6 @@ import { Link } from 'react-router-dom';
 
 
 const withTitle = (Component) => {
-  
-
-
     return (props) => {
       const drawerWidth = 240;
 
@@ -95,6 +92,16 @@ const withTitle = (Component) => {
       
 
       const theme = useTheme();
+      const [count, setCount] = useState(10);
+      console.log(count);
+      setCount(10);
+
+      const data = useState(20);
+      console.log(typeof data);
+      console.log(data[0]);
+      data[1](30)
+      
+
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -111,8 +118,6 @@ const withTitle = (Component) => {
     { text: 'Profile', path: '/ProfileForm' },
     { text: 'EditFullProfileForm', path: '/EditFullProfileForm' },
     { text: 'ReportBug', path: '/ReportBug' }
-
-
   ];
 
       return (
