@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/loader/Loader";
+// import Loader from "../../components/loader/Loader";
 import ProductForm from "../../components/product/productForm/ProductForm";
 import {
   createProduct,
@@ -23,7 +23,7 @@ const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState("");
 
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
 
   const { name, category, price, quantity } = product;
 
