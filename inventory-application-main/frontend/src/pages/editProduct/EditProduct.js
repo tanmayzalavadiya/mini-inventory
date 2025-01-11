@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../../components/loader/Loader";
+// import Loader from "../../components/loader/Loader";
 import ProductForm from "../../components/product/productForm/ProductForm";
 import {
   getProduct,
   getProducts,
-  selectIsLoading,
+  // selectIsLoading,
   selectProduct,
   updateProduct,
 } from "../../redux/features/product/productSlice";
@@ -15,7 +15,7 @@ const EditProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
 
   const productEdit = useSelector(selectProduct);
 

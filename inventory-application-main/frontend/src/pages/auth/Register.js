@@ -19,7 +19,7 @@ const initialState = {
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [ setIsLoading] = useState(false);
   const [formData, setformData] = useState(initialState);
   const { name, email, password, password2 } = formData;
 

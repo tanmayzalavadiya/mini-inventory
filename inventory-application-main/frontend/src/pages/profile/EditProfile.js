@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/card/Card";
-import Loader from "../../components/loader/Loader";
+// import Loader from "../../components/loader/Loader";
 import { selectUser } from "../../redux/features/auth/authSlice";
 import "./Profile.scss";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ import ChangePassword from "../../components/changePassword/ChangePassword";
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [setIsLoading] = useState(false);
   const user = useSelector(selectUser);
   const { email } = user;
 
